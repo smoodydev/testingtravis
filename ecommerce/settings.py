@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
+# So within settings under INSTALLED_APPS, we have to put in django_forms_bootstrap in order for that to work. i had to pip install django-forms-bootstrap 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_forms_bootstrap',
+    'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -52,10 +57,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ecommerce.urls'
 
+#  And because we now have multiple templates folders, we need to specify in our settings that all directories called templates potentially contain templates.
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,6 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# This is something you did in the Django auth app. By adding these in, you should now have login capability.
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', 'accounts.backends.CaseInsensitive'
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -119,3 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Now, this is purely to fix an issue that you have with Cloud9. Dont know what this means
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
+
+
