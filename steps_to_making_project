@@ -1,5 +1,0 @@
-mkvirtualenv "NAME"
-pip install django==1.11.24
-django-admin startproject name .   
-IN SETTINGS.PY in allowed_hosts input address, i.e. 127.0.01
-then in cmd terminal: python manage.py runserver 
