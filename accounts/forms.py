@@ -30,7 +30,7 @@ class UserRegistrationForm(UserCreationForm):
   # inner class Meta
   class Meta:
     model = User
-    fields = ['email', 'username', 'password1', 'password2']
+    fields = ['username', 'email', 'password1', 'password2']
   # we need to implement form validation next
 
   def clean_email(self):
