@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # This is something you did in the Django auth app. By adding these in, you should now have login capability.
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend', 'accounts.backends.CaseInsensitive'
+    'django.contrib.auth.backends.ModelBackend', 'accounts.backends.CaseInsensitiveAuth'
 ]
 
 # Internationalization
