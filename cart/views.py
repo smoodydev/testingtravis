@@ -14,7 +14,10 @@ def add_to_cart(request, id):
   quantity=int(request.POST.get('quantity'))
   # Now the cart here, you can see request.session, so it's not going to a database.It's going to get the cart from the session, and either gets a cart if one already exists or an empty dictionary if one does not yet exist.
   cart = request.session.get('cart', {})
-  cart[id] = cart.get(id, quantity)
+  if id in cart:
+    cart[id] = int(cart[id] + quantity)
+  else:
+    cart[id] = cart.get(id, quantity)
 
   request.session['cart'] = cart
   return redirect(reverse('index'))
