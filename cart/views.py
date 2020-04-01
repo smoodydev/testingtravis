@@ -13,6 +13,7 @@ def add_to_cart(request, id):
   """Add to quantity of the specified product to the cart. This takes an integer, and this gets an integer from the the form that we created in the last unit.And when we click on the Add to Cart button, the integer that is in that form will go to the cart."""
   quantity=int(request.POST.get('quantity'))
   # Now the cart here, you can see request.session, so it's not going to a database.It's going to get the cart from the session, and either gets a cart if one already exists or an empty dictionary if one does not yet exist.
+  
   cart = request.session.get('cart', {})
   if id in cart:
     cart[id] = int(cart[id] + quantity)
