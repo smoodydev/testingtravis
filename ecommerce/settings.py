@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import env
+
+#  So to actually use our env.py variables, we have to put import env at the top of our settings.py file. And that will import the entire file, and therefore, allow us access to our environmental variables.
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,6 +149,12 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# add in the stripe publishable key
+# WE ARE GOING TO create an environment variable called STRIPE_PUBLISHABLE and same for STRIPE_SECRET. The reason we're using environment variables is we don't want these keys, particularly the secret key, to be visible to any of our users. Otherwise, they would be able to hack into our account.
+# So OS, by meaning operating system, means whatever computer this is running on. So in this case right now, it's our computer, so we're going to have to create a new file called env.py at the top level of our project. 
+STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
+STRIPE_SECRET = os.getenv('STRIPE_SCRET')
 
 # Now, this is purely to fix an issue that you have with Cloud9. Dont know what this means
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

@@ -1,6 +1,6 @@
 body {
   font-family: Arial;
-  padding-top: 70px;
+  padding-top: 100px;
 }
 
 footer {
@@ -18,3 +18,69 @@ footer {
 .accountform {
   padding-top: 20px;
 }
+
+/* badge: is the cart icon at the na bar */
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+/* change the background color */
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+
+.product {
+  /* contain so that it remains within the div */
+  background-size: contain;
+  /* center center to make sure its centered within the div */
+  background-position: center center;
+  /* we dont want it tiling */
+  background-repeat: no-repeat;
+  /* set a width, regardless of size of upload its width is the same and height */
+  width: 150px;
+  height: 150px;
+  /* auto is just to center the div within the other divs */
+  margin: 0 auto;
+}
+
+/* So within our caption paragraph, which is where we describe the product, we're putting in some word-wrap so that the text will wrap within the <div>, or within the paragraph, and won't overflow. */
+caption p {
+  word-wrap: break-word;
+}
+
+.row.row-flex {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+/* We've used Bootstrap panels to display our products.
+But we want to add some custom CSS here.
+So we're adding a border-color: transparent. */
+
+.panel-default {
+  border-color: transparent;
+  padding: 0 10px;
+}
+
+.panel-body {
+  height: 100%;
+  border: 1px solid #ddd;
+}
+
+/* Within our product description, if you had different lengths of descriptions of each product, you would run into a problem where your <div> height would vary.
+So a little trick there is to put in a min-height. */
+
+.product-description {
+  min-height: 40px;
+}
+
+
+
