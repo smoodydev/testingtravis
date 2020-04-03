@@ -155,7 +155,7 @@ MEDIA_URL = '/media/'
 # WE ARE GOING TO create an environment variable called STRIPE_PUBLISHABLE and same for STRIPE_SECRET. The reason we're using environment variables is we don't want these keys, particularly the secret key, to be visible to any of our users. Otherwise, they would be able to hack into our account.
 # So OS, by meaning operating system, means whatever computer this is running on. So in this case right now, it's our computer, so we're going to have to create a new file called env.py at the top level of our project. 
 STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
-STRIPE_SECRET = os.getenv('STRIPE_SCRET')
+STRIPE_SECRET = os.getenv('STRIPE_SECRET')
 
 # Now, this is purely to fix an issue that you have with Cloud9. Dont know what this means
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
