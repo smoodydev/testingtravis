@@ -6,9 +6,9 @@ from django.contrib import messages
 from .forms import MakePaymentForm, OrderForm
 from .models import OrderLineItem
 from django.conf import settings
-from django.utils import settings
+from django.utils import timezone
 from products.models import Product
-from stripe
+import stripe
 
 # Create your views here.
 
@@ -27,7 +27,7 @@ def checkout(request):
       order.date = timezone.now()
       order.save()
       # u neeed to get the info on what is being purchased. we will get that from variable cart
-      cart = request.session.get('cart' {})
+      cart = request.session.get('cart', {})
       # initialise a total of zero
       total = 0
       # then do a for loop
