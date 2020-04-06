@@ -22,8 +22,8 @@ class Order(models.Model):
     return '{0}-{1}-{2}'.format(self.id, self.date, self.full_name)
 
 class OrderLineItem(models.Model):
-  order = models.ForeignKey(Order, null=False)
-  product = models.ForeignKey(Product, null=False)
+  order = models.ForeignKey(Order, on_delete=models.PROTECT, null=False)
+  product = models.ForeignKey(Product, on_delete=models.PROTECT, null=False)
   quantity = models.IntegerField(blank=False)
 
   # we can return this as a string as follows:

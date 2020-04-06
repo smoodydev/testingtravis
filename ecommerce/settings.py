@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import env
+import dj_database_url
 
 #  So to actually use our env.py variables, we have to put import env at the top of our settings.py file. And that will import the entire file, and therefore, allow us access to our environmental variables.
 
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ro(9j&k-i#*p7t)zr0%t2xx^^u&tbz5@_s4l4gr!05f+dsfzx8'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,13 +94,18 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
+# Yeah that's normal. working in development mode, you have to work on sqlite3 db. But when you go to Heroku, it'll be postgres db so you'll lose all database details and superuser, have to create fresh on postgres. 
+
+# when i migrate the database from dbsqlite(local) to postgres (production) i had a problem migrating when inputting the ususal python manage.py makemigrations. So i was told by a tutor to select option 2 then input 'python manage.py migrate --run-syncdb'
+
+DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
