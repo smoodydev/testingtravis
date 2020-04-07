@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# cloud 9 would be: [os.environ.get('c9_HOSTNAME')]
+# cloud 9 would be: ALLOWED_HOSTS = [os.environ.get('C9_HOSTNAME'), '127.0.0.1']
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'checkout',
-
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'cart.contexts.cart_contents',
+                'cart.contexts.cart_contents'
             ],
         },
     },
@@ -144,6 +144,21 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Then we can make some changes to our settings.py in order to connect to AWS. Static files tend not to change that many things, like CSS, so browsers will often cache them.So the first thing that we're going to add in here is just something to allow boto to know that it can cache the static files.
+
+AWS_S3_OBJECT_PARAMETRES = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000',
+}
+AWS_STORAGE_BUCKET_NAME = 'aleds-ecommerce'
+# EU (London) eu-west-2
+AWS_S3_REGION_NAME = 'eu-west-2'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

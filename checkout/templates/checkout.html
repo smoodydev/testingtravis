@@ -9,18 +9,7 @@
 Now, this contains JavaScript that Stripe requires.
 And we're actually going to have to go back to our base.html here and add in the block head_js here.
 So what will happen is that the JavaScript that we're going to write in checkout.html will only be injected into base.html when we're clicking on the checkout. -->
-{% block head_js %}
-<!-- So within our <script> tags here, we are going to go to a source of js.stripe.com/v2.
-And that's a direct link to Stripe's JavaScript, so that's the first thing it's loaded. -->
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type='text/javascript'>
-    //<![CDATA[
-    Stripe.publishableKey = '{{ publishable }}';
-    //]]>
-</script>
-<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
 
-{% endblock %}
 
 {% block content %}
 <div class="row row-flex">
@@ -44,7 +33,7 @@ And that's a direct link to Stripe's JavaScript, so that's the first thing it's 
   <p><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{ total }}</p>
 </div>
 
-<form role="form" method="post" id="payment_form" action="{% url 'checkout' %}">
+<form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
   <legend>Payment Details</legend>
   <div id="credit-card-errors" style="display: none">
     <div class="alert-message block-message error" id="stripe-error-message"></div>
@@ -65,4 +54,23 @@ And that's a direct link to Stripe's JavaScript, so that's the first thing it's 
 </form>
 
 {% endblock %}
+
+{% block head_js %}
+<!-- So within our <script> tags here, we are going to go to a source of js.stripe.com/v2.
+And that's a direct link to Stripe's JavaScript, so that's the first thing it's loaded. -->
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type='text/javascript'>
+    //<![CDATA[
+    Stripe.publishableKey = '{{ publishable }}';
+    //]]>
+</script>
+<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+
+{% endblock %}
+
+
+
+
+
+
 
