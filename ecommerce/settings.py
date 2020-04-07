@@ -154,11 +154,16 @@ AWS_STORAGE_BUCKET_NAME = 'aleds-ecommerce'
 # EU (London) eu-west-2
 AWS_S3_REGION_NAME = 'eu-west-2'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_LOCATION = 'static'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# instead of the above which we have used until now we will use another value for STATICFILES_STORAGE. This is changed to the following after creating the custom_storages.py file
+
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -169,8 +174,15 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     )
 
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
+# CODE INSTITUTE found an issue in a video so instead of :MEDIA_URL = '/media/' they tell us to input the following:
+
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
 
 # add in the stripe publishable key
 # WE ARE GOING TO create an environment variable called STRIPE_PUBLISHABLE and same for STRIPE_SECRET. The reason we're using environment variables is we don't want these keys, particularly the secret key, to be visible to any of our users. Otherwise, they would be able to hack into our account.
