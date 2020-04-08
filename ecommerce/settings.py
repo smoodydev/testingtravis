@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 # cloud 9 would be: ALLOWED_HOSTS = [os.environ.get('C9_HOSTNAME'), '127.0.0.1']
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = [ '127.0.0.1', 'ecommerce-code-institute-2020.herokuapp.com' ]
 
 
 # Application definition
@@ -115,7 +115,7 @@ else:
         }
     }
 
-    
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
