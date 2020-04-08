@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import env
+
+# not using the env file now as we will be running everything off heroku (production) not local
+# import env
+
 import dj_database_url
 
 #  So to actually use our env.py variables, we have to put import env at the top of our settings.py file. And that will import the entire file, and therefore, allow us access to our environmental variables.
@@ -94,18 +97,25 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+
 
 # Yeah that's normal. working in development mode, you have to work on sqlite3 db. But when you go to Heroku, it'll be postgres db so you'll lose all database details and superuser, have to create fresh on postgres. 
 
 # when i migrate the database from dbsqlite(local) to postgres (production) i had a problem migrating when inputting the ususal python manage.py makemigrations. So i was told by a tutor to select option 2 then input 'python manage.py migrate --run-syncdb'
 
-DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
+else:
+    print('Database URL not found. Using SQLite instead')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
