@@ -5,3 +5,10 @@ env.py
 *.jpg
 static/
 media/
+
+# if we want any css changes to work we will have to push them to s3 if we want any css changes. Dont understand how u push to s3 yet
+
+# below is reason and origin of a font awesome
+# Font-awesome icons that size with fonts
+# Uses font files in static directories for visual cues for your user
+# Use the icon tag to link to static font classes
