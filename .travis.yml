@@ -3,4 +3,4 @@ python:
 - "3.4"
 install: "pip install -r requirements.txt"
 script:
-- SECRET_KEY="somesecretkey" ./manage.py test
+- SECRET_KEY="somesecretkey" python3 manage.py test test
